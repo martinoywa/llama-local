@@ -13,6 +13,8 @@ fi
 # install some necessary packages
 pip install transformers
 pip install accelerate
+pip install sentencepiece
+pip install -U bitsandbytes
 
 
 # set model path
@@ -27,6 +29,3 @@ ln $tokenizer_path/tokenizer.model $model_dir/tokenizer.model
 # 13GB+ of available RAM required.
 TRANSFORM=`python -c "import transformers;print('/'.join(transformers.__file__.split('/')[:-1])+'/models/llama/convert_llama_weights_to_hf.py')"`
 pip install protobuf && python $TRANSFORM --input_dir $model_dir --model_size $model_size --output_dir $model_dir-hf
-
-# other upgrades 
-pip install -U bitsandbytes

@@ -8,7 +8,11 @@ Convert LLama-2/3 Weights to HuggingFace compatible and run locally.
 chmod +x convert_to_hugging_face.sh
 ./convert_to_hugging_face.sh /home/llama /home/llama/llama-2-7b-chat 7B
 ```
-3. Run python script.
+3. Install requirements.
+```
+pip install -r requirements.txt
+```
+4. Run python script.
 ```
 python local_llama.py
 ```

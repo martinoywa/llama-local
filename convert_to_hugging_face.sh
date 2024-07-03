@@ -16,6 +16,7 @@ pip install accelerate
 pip install sentencepiece
 pip install -U bitsandbytes
 pip install protobuf
+pip install blobfile
 
 
 # set model path

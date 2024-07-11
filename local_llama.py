@@ -29,7 +29,7 @@ SYSTEM_PROMPT = """You are an AI assistant that answers questions in a friendly 
 """
 
 query_wrapper_prompt = PromptTemplate(
-    "[INST]<>\n" + SYSTEM_PROMPT + "<>\n\n{query_str}[/INST] "
+    "[INST]<<SYS>>\n" + SYSTEM_PROMPT + "<<SYS>>\n\n{query_str}[/INST] "
 )
 
 quantization_config = BitsAndBytesConfig(
@@ -41,17 +41,17 @@ quantization_config = BitsAndBytesConfig(
 
 llm = HuggingFaceLLM(
     context_window=2048,
-    max_new_tokens=256,
-    generate_kwargs={"temperature": 0.7, "top_k": 10, "top_p": 0.95, "do_sample": True, "num_return_sequences": 1},
+    max_new_tokens=512,
+    generate_kwargs={"temperature": 0.7, "do_sample": False, "num_return_sequences": 1},
     query_wrapper_prompt=query_wrapper_prompt,
     tokenizer_name=selected_model,
     model_name=selected_model,
-    device_map="auto",
+    device_map="cuda",
     # change these settings below depending on your GPU
     model_kwargs={"quantization_config": quantization_config},
 )
 
-# embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
+# embed_model
 embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
 
 Settings.llm = llm
@@ -63,6 +63,6 @@ index = VectorStoreIndex.from_documents(documents)
 
 
 # set Logging to DEBUG for more detailed outputs
-query_engine = index.as_query_engine(llm=llm)
+query_engine = index.as_query_engine()
 response = query_engine.query("What did the author do growing up?")
 print(response)

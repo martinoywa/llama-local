@@ -13,8 +13,8 @@ from llama_index.core import SimpleDirectoryReader
 from llama_index.core import VectorStoreIndex
 
 
-os.environ["CURL_CA_BUNDLE"] = ""
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+# os.environ["CURL_CA_BUNDLE"] = ""
+# os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 # Model names (make sure you have access on HF)
 LLAMA2_7B = "/home/llama/llama-2-7b-hf/"
